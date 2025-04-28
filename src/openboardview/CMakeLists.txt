@@ -148,6 +148,7 @@ endif()
 # Must be defined in the same directory as the add_executable including the file
 set_source_files_properties(${ASSETS} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 
+
 set(GENCAD_FILE_GRAMMAR_GENERATOR
 	"${CMAKE_CURRENT_SOURCE_DIR}/../../utilities/generate_grammar_header.py")
 
@@ -177,6 +178,10 @@ if(MINGW) # Dirty fix to force linking all libs (esp. libstdc++) statically for 
 	set_target_properties(${PROJECT_NAME_LOWER} PROPERTIES LINK_SEARCH_END_STATIC 1)
 elseif(APPLE)
 	set_target_properties(${PROJECT_NAME_LOWER} PROPERTIES MACOSX_BUNDLE_ICON_FILE ${PROJECT_NAME_LOWER})
+	set_target_properties(${PROJECT_NAME_LOWER} PROPERTIES
+          MACOSX_BUNDLE TRUE
+          MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/../../asset/Info.plist
+	)   
 endif()
 
 target_include_directories(${PROJECT_NAME_LOWER} PRIVATE
